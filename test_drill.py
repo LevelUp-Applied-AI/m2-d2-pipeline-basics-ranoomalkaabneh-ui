@@ -10,16 +10,24 @@ import numpy as np
 from drill_functions import clean_column, compute_revenue
 
 
+
+
 def test_clean_column():
-    # TODO: Create a pd.Series with at least one NaN value
-    # TODO: Call clean_column() on it
-    # TODO: Assert no NaN values remain in the result
-    # TODO: Assert the NaN was filled with the correct median value
-    pass
+    s = pd.Series([1, 2, None, 4])
+    cleaned = clean_column(s)
+
+   
+    assert cleaned.isna().sum() == 0
+
+    
+    assert cleaned[2] == s.median()
 
 
 def test_compute_revenue():
-    # TODO: Create two small pd.Series (quantity and price)
-    # TODO: Call compute_revenue() on them
-    # TODO: Assert the result matches the expected element-wise product
-    pass
+    quantity = pd.Series([1, 2, 3])
+    price = pd.Series([10, 20, 30])
+
+    revenue = compute_revenue(quantity, price)
+
+    expected = pd.Series([10, 40, 90])
+    assert revenue.equals(expected)
